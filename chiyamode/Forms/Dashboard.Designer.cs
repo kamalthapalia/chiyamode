@@ -44,8 +44,9 @@
             this.date = new System.Windows.Forms.Label();
             this.welcome = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.panel4 = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.panel4 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -206,10 +207,11 @@
             // 
             // panel4
             // 
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel4.BackColor = System.Drawing.SystemColors.AppWorkspace;
             this.panel4.Location = new System.Drawing.Point(200, 33);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(950, 640);
+            this.panel4.Size = new System.Drawing.Size(950, 74);
             this.panel4.TabIndex = 3;
             // 
             // Dashboard
@@ -234,8 +236,11 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.ResumeLayout(false);
-
         }
+
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+
+        private System.Windows.Forms.Panel panel4;
 
         #endregion
 
@@ -246,7 +251,6 @@
         private System.Windows.Forms.Label welcome;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label products;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel5;
@@ -255,5 +259,7 @@
         private System.Windows.Forms.Label time;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Timer timer1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private ProductList productList1;
     }
 }

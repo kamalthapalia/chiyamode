@@ -1,13 +1,6 @@
-﻿using chiyamode.Forms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
+using chiyamode.Forms;
 using chiyamode.Repository;
 
 namespace chiyamode
@@ -17,7 +10,7 @@ namespace chiyamode
         public LoginForm()
         {
             InitializeComponent();
-            this.Load += LoginForm_Load;
+            Load += LoginForm_Load;
         }
 
         private void LoginForm_Load(object sender, EventArgs e)
@@ -34,18 +27,18 @@ namespace chiyamode
             registerNow.Click += registerNow_Click;
         }
 
-        
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
             var username = usermaneInp.Text;
             var password = passwordInp.Text;
-            UserRepository user = new UserRepository();
-            if(user.Login(username, password))
+            var user = new UserRepository();
+            if (user.Login(username, password))
             {
                 var dash = new Dashboard();
-                this.Hide();
-                dash.Show();
+                Hide();
+                dash.ShowDialog();
+                Show();
             }
             else
             {
@@ -59,12 +52,10 @@ namespace chiyamode
             addUser.ShowDialog();
         }
 
-       
+
         private void cross_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
-
-        
     }
 }

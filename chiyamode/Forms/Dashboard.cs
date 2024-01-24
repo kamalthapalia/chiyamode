@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using chiyamode.Repository;
 
 namespace chiyamode.Forms
 {
@@ -21,12 +16,17 @@ namespace chiyamode.Forms
 
         private void OnLoadEvents()
         {
-            date.Text = DateTime.Now.ToString().Split()[0]+" "+ DateTime.Now.ToString("dddd");
-            timer1.Interval = 1000; 
-            timer1.Enabled = true;  
+            date.Text = DateTime.Now.ToString().Split()[0] + " " + DateTime.Now.ToString("dddd");
+            timer1.Interval = 1000;
+            timer1.Enabled = true;
             timer1.Tick += Timer1_Tick;
-            this.WindowState = FormWindowState.Maximized;
+            WindowState = FormWindowState.Maximized;
+            var productRepository = new ProductRepository();
+            var products = productRepository.GetAll();
 
+            var numberOfProducts = products.Count();
+
+            MessageBox.Show($"Number of products: {numberOfProducts}");
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -36,9 +36,6 @@ namespace chiyamode.Forms
 
         private void AttachEventHandlers()
         {
-            
         }
-
-   
     }
 }
