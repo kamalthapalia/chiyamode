@@ -9,5 +9,6 @@ namespace chiyamode.Repository
         IEnumerable<T> GetAll();
         void Update(T entity);
         void Delete(int id);
+        bool Login(string username, string password);
     }
 }

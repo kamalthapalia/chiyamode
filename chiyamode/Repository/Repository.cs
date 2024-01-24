@@ -33,11 +33,12 @@ namespace chiyamode.Providers
             {
                 OpenConnection();
 
-                var tableName = typeof(T).Name;
+                var tableName = typeof(T).Name.ToLower();
                 var properties = typeof(T).GetProperties();
+                var nonIdProperties = properties.Where(p => !p.Name.Equals("Id", StringComparison.OrdinalIgnoreCase));
+                var columns = string.Join(", ", nonIdProperties.Select(p => $"\"{p.Name.ToLower()}\""));
+                var values = string.Join(", ", nonIdProperties.Select(p => $"@{p.Name.ToLower()}"));
 
-                var columns = string.Join(", ", properties.Select(p => $"\"{p.Name}\""));
-                var values = string.Join(", ", properties.Select(p => $"@{p.Name}"));
 
                 var insertQuery = $"INSERT INTO {tableName} ({columns}) VALUES ({values}) RETURNING *";
 
@@ -145,5 +146,30 @@ namespace chiyamode.Providers
                 CloseConnection();
             }
         }
+        public bool Login(string username, string password)
+        {
+            try
+            {
+                OpenConnection();
+
+                // Assuming you have a 'Users' table with 'Username' and 'Password' columns
+                var tableName = "Users";
+                var loginQuery = $"SELECT COUNT(*) FROM {tableName} WHERE Username = @Username AND Password = @Password";
+
+                var result = _connection.ExecuteScalar<int>(loginQuery, new { Username = username, Password = password });
+
+                return result > 0;
+            }
+            catch (Exception ex)
+            {
+                // Handle the exception. You might want to log it or throw a custom exception.
+                throw new ApplicationException($"Error during login check for {typeof(T).Name}.", ex);
+            }
+            finally
+            {
+                CloseConnection();
+            }
+        }
+
     }
 }

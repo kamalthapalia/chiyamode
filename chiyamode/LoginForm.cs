@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using chiyamode.Repository;
 
 namespace chiyamode
 {
@@ -39,7 +40,8 @@ namespace chiyamode
         {
             var username = usermaneInp.Text;
             var password = passwordInp.Text;
-            if(username=="kamal"&& password=="12345")
+            UserRepository user = new UserRepository();
+            if(user.Login(username, password))
             {
                 var dash = new Dashboard();
                 this.Hide();
