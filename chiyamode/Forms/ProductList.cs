@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
+using chiyamode.Models;
+using chiyamode.Repository;
+using chiyamode.utils;
 
 namespace chiyamode.Forms
 {
@@ -11,17 +15,27 @@ namespace chiyamode.Forms
             Load += LoadMeth;
         }
 
+        public IEnumerable<Products> products { get; set; }
+
         private void LoadMeth(object sender, EventArgs e)
         {
-            for (var i = 0; i < 5; i++)
+            GetData();
+        }
+
+        public void GetData()
+        {
+            flowLayoutPanel1.Controls.Clear();
+            var productRepository = new ProductRepository();
+            var prods = productRepository.GetAll();
+            foreach (var product in prods)
             {
                 var productCard = new ProductCard();
-                productCard.Price = "700";
-                productCard.Category = "Clothes";
-                productCard.Title = "Jeans pant Luois Vi";
-
-
-                Controls.Add(productCard);
+                productCard.Price = product.Price.ToString();
+                productCard.Category = Data.menuCategories[product.Category];
+                productCard.Title = product.Name;
+                productCard.Img = product.image;
+                productCard.id = product.Id;
+                flowLayoutPanel1.Controls.Add(productCard);
             }
         }
     }

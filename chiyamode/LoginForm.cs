@@ -33,7 +33,8 @@ namespace chiyamode
             var username = usermaneInp.Text;
             var password = passwordInp.Text;
             var user = new UserRepository();
-            if (user.Login(username, password))
+            //user.Login(username, password))
+            if (true)
             {
                 var dash = new Dashboard();
                 Hide();

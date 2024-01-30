@@ -1,6 +1,6 @@
-﻿using chiyamode.Models;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using chiyamode.Models;
 using chiyamode.Repository;
 
 namespace chiyamode.Forms
@@ -12,6 +12,7 @@ namespace chiyamode.Forms
             InitializeComponent();
             EventsHandlers();
         }
+
         private void EventsHandlers()
         {
             closeBtn.Click += CloseBtn_Click;
@@ -20,31 +21,27 @@ namespace chiyamode.Forms
 
         private void AddUserBtn_Click(object sender, EventArgs e)
         {
-            Users users = new Users();
-            UserRepository userRepository = new UserRepository();
+            var users = new Users();
+            var userRepository = new UserRepository();
             users.Username = usermaneInp.Text.Trim();
             users.Password = passwordInp.Text.Trim();
-            Users saved = userRepository.Save(users);
-            if (saved.Id>-1)
-            {
-                MessageBox.Show("Success i guess");
-            }
+            var saved = userRepository.Save(users);
+            if (saved.Id > -1) MessageBox.Show("Success i guess");
         }
 
         private void CloseBtn_Click(object sender, EventArgs e)
         {
             WinClose();
         }
+
         private void WinClose()
         {
-            this.Close();
+            Close();
         }
+
         private void registerNow_Click(object sender, EventArgs e)
         {
             WinClose();
-
         }
-
-       
     }
 }

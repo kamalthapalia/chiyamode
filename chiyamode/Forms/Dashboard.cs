@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Linq;
 using System.Windows.Forms;
-using chiyamode.Repository;
 
 namespace chiyamode.Forms
 {
@@ -21,12 +19,6 @@ namespace chiyamode.Forms
             timer1.Enabled = true;
             timer1.Tick += Timer1_Tick;
             WindowState = FormWindowState.Maximized;
-            var productRepository = new ProductRepository();
-            var products = productRepository.GetAll();
-
-            var numberOfProducts = products.Count();
-
-            MessageBox.Show($"Number of products: {numberOfProducts}");
         }
 
         private void Timer1_Tick(object sender, EventArgs e)
@@ -36,6 +28,20 @@ namespace chiyamode.Forms
 
         private void AttachEventHandlers()
         {
+            productsBtn.Click += ProductsBtnOnClick;
+            checkOutBtn.Click += CheckOutBtnOnClick;
+        }
+
+        private void CheckOutBtnOnClick(object sender, EventArgs e)
+        {
+            cart1.Visible = true;
+            productsPage1.Visible = false;
+        }
+
+        private void ProductsBtnOnClick(object sender, EventArgs e)
+        {
+            cart1.Visible = false;
+            productsPage1.Visible = true;
         }
     }
 }

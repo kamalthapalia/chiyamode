@@ -1,5 +1,7 @@
 using System;
+using System.IO;
 using System.Windows.Forms;
+using chiyamode.Pages;
 
 namespace chiyamode.Forms
 {
@@ -7,6 +9,8 @@ namespace chiyamode.Forms
     {
         // Remove the public fields
         private string category;
+        public int id;
+        private string img;
         private string price;
         private string title;
 
@@ -27,13 +31,28 @@ namespace chiyamode.Forms
             }
         }
 
+
+        public string Img
+        {
+            get => img;
+            set
+            {
+                img = value;
+
+                // Combine the destination folder with the product name as the file name
+                var imagePath = Path.Combine(@"D:\Products Images", img);
+                // Set the ImageLocation of the thumbnail
+                thumbnail.ImageLocation = imagePath;
+            }
+        }
+
         public string Price
         {
             get => price;
             set
             {
                 price = value;
-                priceLabel.Text = value;
+                priceLabel.Text = "Rs. " + value;
             }
         }
 
@@ -47,9 +66,20 @@ namespace chiyamode.Forms
             }
         }
 
+        private string GetImageFormat(string imageName)
+        {
+            // Get the image format from the file extension
+            return Path.GetExtension(imageName).Replace(".", "");
+        }
+
         private void LoadMeth(object sender, EventArgs e)
         {
-            // You can remove this method if it's not needed
+            addToCart.Click += AddToCartOnClick;
+        }
+
+        private void AddToCartOnClick(object sender, EventArgs e)
+        {
+            Cart.addToSet(id);
         }
     }
 }
